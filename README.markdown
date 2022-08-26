@@ -1,6 +1,119 @@
+# UNITY STYLE GUIDE
+
+This style guide is written with best practice and readability in mind.
+
+- [Project Style Guide](#project-style-guide)
+- [C# Style Guide](#c-style-guide)
+
+# Project Style Guide
+
+## Table of Contents
+- [Folder Structure](#folder-structure)
+  + [Assets](#assets-folder)
+  + [Build](#build-folder)
+- [File Naming](#file-naming)
+  + [Prefabs](#prefabs)
+  + [Materials](#materials)
+  + [Models](#models)
+  + [Textures](#textures)
+  + [Audio](#audio)
+
+## Folder structure
+
+### Assets Folder
+- Assets
+  + Animations: Animation clips
+  + Editor
+  + Fonts
+  + Materials
+  + Models
+  + Prefabs
+  + Scenes
+  + Scripts
+  + Audio
+  + Textures
+  + Shaders
+  + VFX
+  
+> **_NOTE:_**  Do not create folders called **Assets** or **AssetTypes**.
+
+### Build Folder
+Create a folder 'Build' inside the root folder.
+- Root
+  + Assets
+  + Packages
+  + ProjectSettings
+  + **Build**
+
+## File Naming
+File naming is simple, always use **PascalCase**. Make sure that the name makes sense and are descriptive of what they are.
+
+> **_NOTE:_**  Never uses spaces, unicode characters or other symbols.
+
+### Prefabs
+Use **PascalCase**, no prefix or suffix.
+
+### Materials
+
+**Material Prefixes**
+| Prefix | Material|
+|:-------|:-------|
+| MAT_   | Material |
+| MI_    | Material Instance |
+
+### Models
+File extension: **FBX**
+
+**Models Prefixes**
+| Prefix | Mesh|
+|:-------|:-------|
+| SM_    | Static |
+| CHAR_    | Character |
+| ANIM_    | Animation |
+
+Use **Y up** and **-Z forward** for exporting.
+
+### Textures
+File extension: **PNG** or **TGA**
+
+**Texture Suffixes**
+| Suffix | Texture|
+|:-------|:-------|
+| _AL    | Albedo |
+| _SP    | Specular |
+| _S     | Smoothness |
+| _MT    | Metalic |
+| _N     | Normal |
+| _H     | Height |
+| _DP    | Displacemnent |
+| _EM    | Emission |
+|_AO     | Ambient Occlusion |
+| _M     | Mask |
+| _UI     | UI |
+
+**RGBA Mask or Channel packing**
+| Channel | Property|
+|:-------|:-------|
+| Red    | Metallic |
+| Green    | Occlusion |
+| Blue    | N/A |
+| Alpha    | Smoothness |
+
+[For more information, see the Unity documention](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@7.1/manual/lit-shader.html#channel-packing)
+
+### Audio
+File extension: **WAV**
+
+**Audio Prefixes**
+| Prefix | Texture|
+|:-------|:-------|
+| SX_    | SFX |
+| MX_    | Music |
+| DX_     | Dialogue |
+
 # C# Style Guide
 
-This style guide is to keep the code consistent and to improve the readability.
+This C# style guide is to keep the code consistent and to improve the readability.
 
 ## Inspiration
 
@@ -13,15 +126,16 @@ This style guide is based on C# and Unity conventions.
   + [Classes & Interfaces](#classes--interfaces)
   + [Methods](#methods)
   + [Fields](#fields)
-  + [Parameters](#parameters--parameters)
-  + [Delegates](#delegates--delegates)
-  + [Events](#events--events)
+  + [Parameters](#parameters)
+  + [Actions](#actions)
+  + [Arrays](#arrays)
   + [Misc](#misc)
 - [Declarations](#declarations)
   + [Access Level Modifiers](#access-level-modifiers)
   + [Fields & Variables](#fields--variables)
   + [Classes](#classes)
   + [Interfaces](#interfaces)
+  + [Functions](#functions)
 - [Spacing](#spacing)
   + [Indentation](#indentation)
   + [Line Length](#line-length)
@@ -29,8 +143,6 @@ This style guide is based on C# and Unity conventions.
 - [Brace Style](#brace-style)
 - [Switch Statements](#switch-statements)
 - [Language](#language)
-- [Copyright Statement](#copyright-statement)
-- [Credit](#credits)
 
 
 ## Nomenclature
@@ -44,18 +156,25 @@ Namespaces are all **PascalCase**, multiple words concatenated together, without
 **AVOID**:
 
 ```csharp
-com.name.fpsgame.hud.healthbar
+com.name.game.hud.healthbar
 ```
 
 **PREFER**:
 
 ```csharp
-Name.FPSGame.HUD.Healthbar
+Name.Game.HUD.Healthbar
 ```
 
 ### Classes & Interfaces
 
-Classes and interfaces are written in **PascalCase**. For example `RadialSlider`. 
+Classes and interfaces are written in **PascalCase**. For example `RadialSlider`.
+
+For certain purposes we use the following naming conventions:
+- `XxxManager`, for manager scripts that controls a specific workflow (usely only one instance of)
+- `XxxController`, for scripts controlling a game object
+- `XxxItem`, for in-game item instance
+- `XxxSettings`, for setting scripts
+- `XeeEditor`, for editor-only scripts
 
 ### Methods
 
@@ -131,6 +250,26 @@ Actions are written in **PascalCase**. For example:
 public event Action<int> ValueChanged;
 ```
 
+### Arrays
+
+Arrays should be named as a plural noun.
+
+**AVOID:**
+
+```csharp
+TargetList
+HatArray
+EnemyPlayerArray
+```  
+
+**PREFER:**
+
+```csharp
+Targets
+Hats
+EnemyPlayers
+```
+
 ### Misc
 
 In code, acronyms should be treated as words. For example:
@@ -194,6 +333,40 @@ RadialSlider
 IRadialSlider
 ```
 
+### Functions
+
+The functionality of the function should give a good assumption. All functions and events perform some form of action, whether its getting info, calculating data, or causing something to explode. Therefore, all functions should start with verbs.
+
+**AVOID:**
+
+```csharp
+CameraOffset
+```
+
+**PREFER:**
+
+```csharp
+GetCameraOffset
+```
+
+#### Boolean Functions
+
+A boolean functions should ask a question.
+
+**AVOID:**
+
+```csharp
+Dead
+Visibility
+```
+
+**PREFER:**
+
+```csharp
+IsDead
+IsVisible
+```
+
 ## Spacing
 
 Spacing is especially important, as code needs to be easily readable. 
@@ -209,7 +382,7 @@ Indentation for blocks uses **4 spaces** for optimal readability:
 **AVOID:**
 
 ```csharp
-for (int i = 0; i < 10; i++) 
+for (int i = 0; i < 10; ++i) 
 {
   Debug.Log("index=" + i);
 }
@@ -218,7 +391,7 @@ for (int i = 0; i < 10; i++)
 **PREFER:**
 
 ```csharp
-for (int i = 0; i < 10; i++) 
+for (int i = 0; i < 10; ++i) 
 {
     Debug.Log("index=" + i);
 }
@@ -299,7 +472,7 @@ if (someTest)
 }
 ```
 
-A **return** is the exception and can be written one a single line:
+A **return** is the exception and can be written on a single line:
 
 ```csharp
 if(someTest) return;
@@ -366,16 +539,3 @@ Only use comments when necessary.
 ```csharp
 // TODO: Example of a reminder
 ```
-
-## Credits
-
-This style guide is a collaborative effort from the most stylish
-raywenderlich.com team members:
-
-- [Darryl Bayliss](https://github.com/DarrylBayliss)
-- [Sam Davies](https://github.com/sammyd)
-- [Mic Pringle](https://github.com/micpringle)
-- [Brian Moakley](https://github.com/VegetarianZombie)
-- [Ray Wenderlich](https://github.com/rwenderlich)
-- [Eric Van de Kerckhove](https://github.com/BlackDragonBE)
-
