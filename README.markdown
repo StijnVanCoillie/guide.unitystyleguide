@@ -373,11 +373,11 @@ Spacing is especially important, as code needs to be easily readable.
 
 ### Indentation
 
-Indentation should be done using **spaces** — never tabs.  
+Indentation should be done using **tabs** — never spaces.  
 
 #### Blocks
 
-Indentation for blocks uses **4 spaces** for optimal readability:
+Indentation for blocks uses **1 tab** for optimal readability:
 
 **AVOID:**
 
